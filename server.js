@@ -39,18 +39,18 @@ app.use(flash());
 
 const env = process.env.NODE_ENV
 
-const cookieSetting = env === 'production' ? { 
-  secure: true, // required for cookies to work on HTTPS
-  httpOnly: false,
-  sameSite: 'none'
-} : {}
+// const cookieSetting = env === 'production' ? { 
+//   secure: true, // required for cookies to work on HTTPS
+//   httpOnly: false,
+//   sameSite: 'none'
+// } : {}
 
 app.use(
   session({
     name: "my-session",
     secret: "personalweb", //  secret: process.env.SESSION_KEY,
-    resave: false,
-    saveUninitialized: true
+    resave: true,
+    saveUninitialized: false
   })
 );
 
