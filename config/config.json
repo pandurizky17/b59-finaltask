@@ -1,0 +1,31 @@
+{
+  "development": {
+    "username": "postgres",
+    "password": "pandu",
+    "database": "newDatabase",
+    "host": "127.0.0.1",
+    "port": "5432",
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "postgres",
+    "password": "pandu",
+    "database": "newDatabase",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "production": {
+    "username": "newDatabase_owner",
+    "password": "SJQ3ZVzkdF9m",
+    "database": "newDatabase",
+    "host": "ep-ancient-feather-a12wmhqo.ap-southeast-1.aws.neon.tech",
+    "port": "5432",
+    "dialect": "postgres",
+    "dialectOptions": {
+      "ssl": {
+        "require": true,
+        "rejectUnauthorized": false
+      }
+    }
+  }
+}

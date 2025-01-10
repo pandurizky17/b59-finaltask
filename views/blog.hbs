@@ -1,0 +1,142 @@
+{{#> layout title='Blog' user=user }}
+
+{{#if messages.success}}
+<script>
+Swal.fire({
+  position: "center",
+  icon: "success",
+  title: "{{ messages.success }}",
+  showConfirmButton: false,
+  timer: 1500
+});
+</script>
+
+{{/if}}
+
+<main>
+    <section class="blog-container">
+      <div style="position: relative; width: 80%; margin-bottom: 20px;">
+        <h1 class="section-title" style="color: white;">My Project</h1>
+          {{#if user}}
+          <a class="btn btn-primary btn-blog-add" href="/blog-add">Add Project</a>
+          {{/if}}
+      </div>
+  <div class="container d-flex flex-wrap gap-3 justify-content-center my-4">
+      {{#each blogs}}
+      <div id="${i}" class="card ggwp" style="width: 18rem">
+        <img
+          src="{{this.image}}"
+          class="card-img-top"
+          alt="image"
+          style="border-radius:15px;"
+        />
+        <div class="card-body" style="color:white;">
+            <h5 class="card-title">
+             <a href="/blog-detail/{{this.id}}" class="blog-item-title" style="color:white;">
+                {{this.title}}</a>
+            </h5>
+
+          <p class="card-text">
+            {{formatDateToWIB this.createdAt}} oleh : {{this.user.username}}
+          </p>
+          
+          <p class="card-text">
+
+            {{!-- {{getStack this.technologies}} --}}
+              {{#if ../node}}
+                <i class="fa-brands fa-node-js fa-xl" style="color: #ffffff;padding-right:3%;padding-top:9%;"></i>
+              {{/if}}
+
+              {{#if ../react}}
+                <i class="fa-brands fa-react fa-xl" style="color: #ffffff;padding-right:3%;padding-top:9%;"></i>
+              {{/if}}
+
+              {{#if ../next}}
+                <i class="fa-solid fa-forward fa-xl" style="color: #ffffff;padding-right:3%;padding-top:9%;"></i>
+              {{/if}}
+
+              {{#if ../typescript}}
+                <i class="fa-solid fa-cannabis fa-xl" style="color: #ffffff;padding-right:3%;padding-top:9%;"></i>
+              {{/if}}
+              {{!-- {{this.technologies}} --}}
+          </p>
+
+          <p class="card-text">
+             {{truncateText this.content}}
+          </p>
+
+            <p class="card-text" style="text-align:end;">
+              {{getRelativeTime this.createdAt}}
+                <br>
+              Last edit : {{formatDateToWIB this.updatedAt}}
+            </p>
+
+            <div class="d-flex  justify-content-end gap-2 w-100">
+            {{#if (equal ../user.id this.user_id)}}
+                <a href="/blog-edit/{{this.id}}"  >
+                  <button  class="btn btn-success w-100">
+                      Edit
+                  </button>
+                </a>
+                <form action="/blog-delete/{{this.id}}?_method=DELETE" method="post">
+                  <button onclick="alertHapus()" type="submit" class="btn btn-danger w-100">Delete</button>
+                </form>
+            {{/if}}
+            </div>
+        </div>
+      </div>
+    {{/each}}
+    </div>
+
+    {{!-- <div id="blogList" class="row row-cols-1 row-cols-md-3 g-4 px-5 gap-2" style="color:white;">
+      {{#each blogs}}
+      <div id="${i}" class="col mx-0 gap-4" style="color:white; background-color: rgba(0, 0, 0, 0.521); padding-top:1%; padding-bottom:3%;">
+        <div>
+        <div class="blog-image">
+          <img src="{{this.image}}" alt="blog-image" style="width:300px;height:180px;" />
+        </div>
+        <div class="blog-content">
+            <h1> <a href="/blog-detail/{{this.id}}" class="blog-item-title" style="color: rgb(255, 255, 255);">
+                {{this.title}}</a>
+            </h1>
+          <div class="detail-blog-content" style="padding-top:2%">
+           {{formatDateToWIB this.createdAt}} oleh : {{this.user.username}}
+          </div>
+           <div class="detail-blog-content" style="padding-top:2%">
+            {{this.technologies}}
+          </div>
+
+
+          
+
+          <p class="blog-text" style="padding-top:7%;padding-bottom:5%;">
+            {{truncateText this.content}}
+          </p>
+          <p class="relative-time" style="color: rgb(255, 255, 255);">
+            {{getRelativeTime this.createdAt}}
+            <br>
+             Last edit : {{formatDateToWIB this.updatedAt}}
+          </p>
+          <div class="btn-group-blog">
+          {{#if (equal ../user.id this.user_id)}}
+            <a href="/blog-edit/{{this.id}}" class="btn btn-edit">Edit</a>
+              <form action="/blog-delete/{{this.id}}?_method=DELETE" method="post" style="display: inline;">
+                <button onclick="alertHapus()" type="submit" class="btn btn-delete">Delete</button>
+              </form>
+            {{/if}}
+          </div>
+        </div>
+      </div>
+      </div>
+      {{else}}
+      <h1 style="text-align: center">Belum ada blog yang di post.</h1>
+      {{/each}}
+    </div> --}}
+  </section>
+<script src="/utils/alert.js"></script>
+</main>
+
+{{!--
+<script src="assets/js/blog.js"></script> --}}
+
+{{/layout}}
