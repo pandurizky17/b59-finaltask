@@ -5,7 +5,8 @@ const { Blog, User } = require("../models");
 
 const saltRounds = 10;
 const env = process.env.NODE_ENV || "production";
-const sequelize = new Sequelize(config.production[env]);
+console.log({env})
+const sequelize = new Sequelize(config[env]);
 
 async function authRegister(req, res) {
   const { username, email, password } = req.body;
@@ -132,8 +133,8 @@ async function renderBlog(req, res) {
   const react = blogs[0].technologies.includes("ReactJs"); //true
   const next = blogs[0].technologies.includes("NextJs"); //true
   const typescript = blogs[0].technologies.includes("Typescript"); //false
-  console.log(node, react, next, typescript);
-  console.log(blogs);
+  // console.log(node, react, next, typescript);
+  // console.log(blogs);
 
   res.render("blog", { blogs, user, node, react, next, typescript });
 }
