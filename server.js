@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 var session = require("express-session");
 var flash = require("express-flash");
@@ -5,7 +6,6 @@ var methodOverride = require("method-override");
 const path = require("path");
 const hbs = require("hbs");
 const { tech } = require("./utils/tech");
-require("dotenv").config();
 const upload = require("./middlewares/upload-file");
 
 const {

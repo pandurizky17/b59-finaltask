@@ -7,13 +7,6 @@
     "port": "5432",
     "dialect": "postgres"
   },
-  "test": {
-    "username": "postgres",
-    "password": "pandu",
-    "database": "newDatabase",
-    "host": "127.0.0.1",
-    "dialect": "postgres"
-  },
   "production": {
     "username": "newDatabase_owner",
     "password": "SJQ3ZVzkdF9m",

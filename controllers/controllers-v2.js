@@ -1,10 +1,10 @@
 const { Sequelize, QueryTypes } = require("sequelize");
 const bcrypt = require("bcrypt");
-const config = require("../config/config.json");
+const config = require("../config/config.js");
 const { Blog, User } = require("../models");
 
 const saltRounds = 10;
-const env = process.env.NODE_ENV || "production";
+const env = process.env.NODE_ENV || "development";
 console.log({env})
 const sequelize = new Sequelize(config[env]);
 
