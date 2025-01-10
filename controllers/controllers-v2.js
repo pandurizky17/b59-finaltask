@@ -5,7 +5,7 @@ const { Blog, User } = require("../models");
 
 const saltRounds = 10;
 const env = process.env.NODE_ENV || "development";
-console.log({env})
+console.log({ env });
 const sequelize = new Sequelize(config[env]);
 
 async function authRegister(req, res) {
@@ -135,8 +135,29 @@ async function renderBlog(req, res) {
   const typescript = blogs[0].technologies.includes("Typescript"); //false
   // console.log(node, react, next, typescript);
   // console.log(blogs);
+  console.log("technologies",{ node,
+    react,
+    next,
+    typescript,})
+  const mappedBlogs = blogs.map(blog => {
+    console.log('id cok', blog.id)
+    return {
+      id: blog.id,
+      title: blog.title,
+      content: blog.content,
+      image: blog.image,
+      node: blog.technologies.includes("NodeJs"),
+      react: blog.technologies.includes("ReactJs"),
+      next: blog.technologies.includes("NextJs"),
+      typescript: blog.technologies.includes("Typescript"),
+      createdAt: blog.createdAt,
+      updatedAt: blog.updatedAt
+    }
+  })
 
-  res.render("blog", { blogs, user, node, react, next, typescript });
+  console.log({mappedBlogs})
+
+  res.render("blog", { blogs: mappedBlogs, user });
 }
 
 async function renderBlogDetail(req, res) {
@@ -162,6 +183,7 @@ async function renderBlogDetail(req, res) {
   if (blogDetail === null) {
     res.render("page-404", { message: "Blog tidak ditemukan" });
   } else {
+
     res.render("blog-detail", {
       data: blogDetail,
       user,
@@ -187,7 +209,7 @@ function renderBlogAdd(req, res) {
 async function addBlog(req, res) {
   let { user } = req.session;
   console.log("form submitted");
-  const { title, content } = req.body;
+  const { title, content, startDate, endDate } = req.body;
   const { nodejs, reactjs, nextjs, typescript } = req.body;
   const { session } = req.session;
 
@@ -222,10 +244,12 @@ async function addBlog(req, res) {
   const image = "http://localhost:5550/" + req.file.path;
   const idUser = user.id;
   const result = await Blog.create({
-    title: title,
-    content: content,
+    title,
+    content,
     technologies: checkBox,
-    image: image,
+    image,
+    startDate,
+    endDate,
     user_id: idUser,
   });
 
@@ -254,9 +278,18 @@ async function renderBlogEdit(req, res) {
   const typescript = dataToEdit.technologies.includes("Typescript");
 
   console.log(node, next, react, typescript);
-  console.log("data yang mau di edit :", dataToEdit); // array
+  console.log("data yang mau di edit :", dataToEdit);
+
   res.render("blog-edit", {
-    data: dataToEdit,
+    data: {
+      id,
+      title: dataToEdit.title,
+      content: dataToEdit.content,
+      startDate: dataToEdit.startDate.toISOString().split('T')[0],
+      endDate: dataToEdit.endDate.toISOString().split('T')[0],
+      image: dataToEdit.image,
+      technologies: dataToEdit.technologies
+    },
     user,
     react,
     node,
@@ -267,7 +300,7 @@ async function renderBlogEdit(req, res) {
 
 async function updateBlog(req, res) {
   const { id } = req.params;
-  const { title, content } = req.body;
+  const { title, content, startDate, endDate } = req.body;
   const { nodejs, reactjs, nextjs, typescript } = req.body;
 
   let checkBox = "";
@@ -296,10 +329,12 @@ async function updateBlog(req, res) {
 
   await Blog.update(
     {
-      title: title,
-      content: content,
+      title,
+      content,
       technologies: checkBox,
       image: fileImage,
+      startDate,
+      endDate,
       updatedAt: sequelize.fn("NOW"),
     },
     {

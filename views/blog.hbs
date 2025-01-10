@@ -43,22 +43,21 @@ Swal.fire({
           <p class="card-text">
 
             {{!-- {{getStack this.technologies}} --}}
-              {{#if ../node}}
+              {{#if this.node}}
                 <i class="fa-brands fa-node-js fa-xl" style="color: #ffffff;padding-right:3%;padding-top:9%;"></i>
               {{/if}}
 
-              {{#if ../react}}
+              {{#if this.react}}
                 <i class="fa-brands fa-react fa-xl" style="color: #ffffff;padding-right:3%;padding-top:9%;"></i>
               {{/if}}
 
-              {{#if ../next}}
+              {{#if this.next}}
                 <i class="fa-solid fa-forward fa-xl" style="color: #ffffff;padding-right:3%;padding-top:9%;"></i>
               {{/if}}
 
-              {{#if ../typescript}}
+              {{#if this.typescript}}
                 <i class="fa-solid fa-cannabis fa-xl" style="color: #ffffff;padding-right:3%;padding-top:9%;"></i>
               {{/if}}
-              {{!-- {{this.technologies}} --}}
           </p>
 
           <p class="card-text">

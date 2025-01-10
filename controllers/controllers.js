@@ -57,7 +57,11 @@ async function addBlog(req, res) {
   const query = `INSERT INTO public."Blogs"
                   (title, content, image)
                   VALUES
-                  ('${title}', '${content}', '${image}')
+                  ('${title}', '${content}', '${image}')`
+  const query2 = `INSERT INTO public."Blogs"
+                  (image, title, content)
+                  VALUES
+                  ('${image}', '${title}', '${content}')
   `;
 
   const result = await sequelize.query(query, { type: QueryTypes.INSERT });

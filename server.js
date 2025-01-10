@@ -43,6 +43,9 @@ app.use(
     secret: "personalweb", //  secret: process.env.SESSION_KEY,
     resave: false,
     saveUninitialized: true,
+    cookie: {
+      maxAge: 100000
+    }
   })
 );
 
