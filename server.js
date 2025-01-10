@@ -37,14 +37,23 @@ const PORT = process.env.SERVER_PORT || 5550;
 app.use(express.json());
 app.use(flash());
 
+const env = process.env.NODE_ENV
+
+const cookieSetting = env === 'production' ? { 
+  secure: true, // required for cookies to work on HTTPS
+  httpOnly: false,
+  sameSite: 'none'
+} : {}
+
 app.use(
   session({
-    name: "my-session",
+    name: "my-session-2",
     secret: "personalweb", //  secret: process.env.SESSION_KEY,
     resave: false,
     saveUninitialized: true,
     cookie: {
-      maxAge: 7 * 24 * 60 * 60 * 1000
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+      ...cookieSetting
     }
   })
 );
