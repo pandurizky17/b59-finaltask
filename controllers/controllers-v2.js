@@ -150,6 +150,7 @@ async function renderBlog(req, res) {
       react: blog.technologies.includes("ReactJs"),
       next: blog.technologies.includes("NextJs"),
       typescript: blog.technologies.includes("Typescript"),
+      user_id: blog.user_id,
       createdAt: blog.createdAt,
       updatedAt: blog.updatedAt
     }
@@ -285,8 +286,8 @@ async function renderBlogEdit(req, res) {
       id,
       title: dataToEdit.title,
       content: dataToEdit.content,
-      startDate: dataToEdit.startDate.toISOString().split('T')[0],
-      endDate: dataToEdit.endDate.toISOString().split('T')[0],
+      startDate: dataToEdit.startDate?.toISOString().split('T')[0] || '',
+      endDate: dataToEdit.endDate?.toISOString().split('T')[0] || '',
       image: dataToEdit.image,
       technologies: dataToEdit.technologies
     },

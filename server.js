@@ -42,10 +42,7 @@ app.use(
     name: "my-session",
     secret: "personalweb", //  secret: process.env.SESSION_KEY,
     resave: false,
-    saveUninitialized: true,
-    cookie: {
-      maxAge: 100000
-    }
+    saveUninitialized: true
   })
 );
 
